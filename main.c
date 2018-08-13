@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.c                                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/13 10:44:47 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 12:18:51 by tkobb            ###   ########.fr       */
+/*   Created: 2018/08/13 11:55:09 by tkobb             #+#    #+#             */
+/*   Updated: 2018/08/13 12:18:49 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(char *s)
-{
-	int		n;
-	int		sign;
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
-	while (*s <= ' ')
-		s++;
-	sign = *s == '-' ? -1 : 1;
-	if (*s == '-' || *s == '+')
-		s++;
-	n = 0;
-	while (*s >= '0' && *s <= '9')
-		n = n * 10 + *s++ - '0';
-	return (n * sign);
+int		main(int argc, char **argv)
+{
+	int		infile;
+	int		status;
+	int		i;
+
+	i = 1;
+	if (argc == 1)
+		status = bsq(0);
+	else
+		while (i < argc)
+			if((infile = open(argv[i++])) == -1)
+				status = error("cannot open");
+			else
+				status = bsq(infile) || status;
+	exit(status);
 }
