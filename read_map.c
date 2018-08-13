@@ -13,28 +13,45 @@
 #include "read_map.h"
 #include "lib.h"
 
-static map		read_meta(int filedes)
+static map		*read_meta(int filedes)
 {
-	size_t	num_read;
-	char	*buf[16];
+	int		num_read;
+	char	buf[16];
 	char	*cur_buf;
 	map		*map;
 
 	cur_buf = buf;
 	while ((num_read = read(filedes, cur_buf, 1)) > 0)
-	{
 		if (*cur_buf++ == '\n')
 			break ;
-		cur_buf++;
-	}
-	if (num_read == -1)
-		error("read meta map");
+	//if (num_read == -1)
+		//error("read meta map");
 	if ((map = malloc(sizeof(map))) == 0)
-		error("malloc map");
-	map->height = stsptoi(buf);	
+		/*error("malloc map")*/;
+	cur_buf = buf;
+	map->height = strptoi(&cur_buf);	
+	map->empty = *cur_buf++;
+	map->obstacle = *cur_buf++;
+	map->full = *cur_buf++;
+	return (map);
 }
 
-map				read_map(int filedes)
+#include <stdio.h>
+
+int		main(int argc, char **argv)
 {
-	
+	map		*m = read_meta(open(argv[1], O_RDONLY));
+	printf("h=%d\n", m->height);
+	printf("empty=%d\n", m->empty);
+	printf("obstacle=%d\n", m->obstacle);
+	printf("full=%d\n", m->full);
+	(void)argc;
+}
+
+map				*read_map(int filedes)
+{
+	map		*map;
+
+	map = read_meta(filedes);
+	return (map);
 }
