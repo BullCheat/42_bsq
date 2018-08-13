@@ -13,6 +13,6 @@
 #ifndef LIB_H
 # define LIB_H
 
-int		ft_atoi(char *str);
+int		strptoi(char **strp);
 
 #endif
