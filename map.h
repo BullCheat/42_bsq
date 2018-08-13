@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct	meta
+typedef struct	map
 {
 	char		empty;
 	char		obstacle;
 	char		full;
 	int			width;
 	int			height;
-}				meta;
-
-typedef struct	map
-{
-	meta		meta;
 	char		*tab;
 }				map;
+
+typedef struct	solution
+{
+	int			x;
+	int			y;
+	int			len;
+}				solution;
