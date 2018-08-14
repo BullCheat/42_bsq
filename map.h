@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MAP_H
+# define MAP_H
 typedef struct	map
 {
 	char		empty;
@@ -26,3 +28,4 @@ typedef struct	solution
 	int			y;
 	int			len;
 }				solution;
+#endif
