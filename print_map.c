@@ -13,27 +13,26 @@
 #include "print_map.h"
 #include <unistd.h>
 
-static int		contains(t_solution *solution, int x, int y)
+static char		contains(t_solution *solution, int x, int y)
 {
+	if (solution == (NULL))
+		return (0);
 	if (x >= solution->x && x < solution->x + solution->len
 		&& y >= solution->y && y < solution->y + solution->len)
 		return (1);
 	return (0);
 }
 
-static char		*transform(int x, int y, t_map *map, t_solution *solution)
+static char		transform(int x, int y, t_map *map, t_solution *solution)
 {
 	int		n;
 
 	if (contains(solution, x, y))
-		return (&map->full);
-	n = map->tab[x + map->width * y];
+		return (map->full);
+	n = map->tab[x + map->width * y] & 1;
 	if (n == 0)
-		return (&map->empty);
-	if (n == 1)
-		return (&map->obstacle);
-	//error;
-	return (NULL);
+		return (map->empty);
+	return (map->obstacle);
 }
 
 void			print_map(t_map *map, t_solution *solution)
@@ -46,7 +45,10 @@ void			print_map(t_map *map, t_solution *solution)
 	{
 		x = 0;
 		while (x < map->width)
-			write(1, transform(x++, y, map, solution ), 1);
+		{
+			char c = transform(x++, y, map, solution);
+			write(1, &c, 1);
+		}
 		write(1, "\n", 1);
 		y++;
 	}

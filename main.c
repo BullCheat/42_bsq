@@ -22,6 +22,7 @@ int		main(int argc, char **argv)
 	int		i;
 
 	i = 1;
+	status = 0;
 	if (argc == 1)
 		status = bsq(0);
 	else

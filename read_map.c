@@ -55,21 +55,6 @@ t_llist			*read_first_line(int filedes, int *len)
 	return (head);
 }
 
-void			copy_first_line(t_llist *list, char *buf, int width)
-{
-	t_llist		*curr;
-	int			i;
-
-	i = 0;
-	curr = list;
-	while (i < width)
-	{
-		buf[i] = ((char*)curr->data)[i % CHUNK_SIZE];
-		if (++i == CHUNK_SIZE)
-			curr = curr->next;
-	}
-}
-
 static char			transform(char c, t_map *map)
 {
 	if (c == map->empty)
@@ -78,6 +63,21 @@ static char			transform(char c, t_map *map)
 		return (1);
 	//error
 	return (3);
+}
+
+void copy_first_line(t_llist *list, t_map *map)
+{
+	t_llist		*curr;
+	int			i;
+
+	i = 0;
+	curr = list;
+	while (i < map->width)
+	{
+		map->tab[i] = transform(((char*)curr->data)[i % CHUNK_SIZE], map);
+		if (++i == CHUNK_SIZE)
+			curr = curr->next;
+	}
 }
 
 t_map			*read_map(int filedes)
@@ -91,15 +91,15 @@ t_map			*read_map(int filedes)
 	map = read_meta(filedes);
 	first_line = read_first_line(filedes, &map->width);
 	map->tab = malloc(map->width * map->height * sizeof(char));
-	copy_first_line(first_line, map->tab, map->width);
-	buf = malloc(map->width * sizeof(char));
+	copy_first_line(first_line, map);
+	buf = malloc((map->width + 1) * sizeof(char));
 	y = 0;
-	while (y < map->height && read(filedes, buf, map->width))
+	while (y < map->height - 1 && read(filedes, buf, map->width + 1)) // +1 -> newline
 	{
 		x = 0;
 		while (x < map->width)
 		{
-			map->tab[x + map->width * y] = transform(buf[x], map);
+			map->tab[x + map->width * (1+y)] = transform(buf[x], map);
 			x++;
 		}
 		y++;
