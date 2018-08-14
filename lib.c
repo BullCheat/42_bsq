@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(char *s)
+int		strptoi(char **strp)
 {
 	int		n;
 	int		sign;
+	char	*s;
 
+	s = *strp;
 	while (*s <= ' ')
 		s++;
 	sign = *s == '-' ? -1 : 1;
@@ -23,5 +25,6 @@ int		ft_atoi(char *s)
 	n = 0;
 	while (*s >= '0' && *s <= '9')
 		n = n * 10 + *s++ - '0';
+	*strp = s;
 	return (n * sign);
 }
