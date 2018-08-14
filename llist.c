@@ -6,16 +6,16 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 19:22:17 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 19:48:48 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 20:10:34 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include <llist.h>
+#include "llist.h"
 
 t_llist		*llist_create_element(void* data)
 {
-	t_llist		list;
+	t_llist		*list;
 
 	if ((list = malloc(sizeof(t_llist))) == 0)
 		return (NULL);
