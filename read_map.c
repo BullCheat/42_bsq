@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/13 15:03:48 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 19:57:30 by tkobb            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "read_map.h"
 #include "llist.h"
 #include "lib.h"
+#include <stdio.h>
 
 static t_map	*read_meta(int filedes)
 {
@@ -30,31 +19,35 @@ static t_map	*read_meta(int filedes)
 	if ((map = malloc(sizeof(t_map))) == 0)
 		/*error("malloc map")*/;
 	cur_buf = buf;
-	map->height = strptoi(&cur_buf);	
+	map->height = strptoi(&cur_buf);
 	map->empty = *cur_buf++;
 	map->obstacle = *cur_buf++;
 	map->full = *cur_buf++;
 	return (map);
 }
 
-#define CHUNK_SIZE 32
+#define CHUNK_SIZE 50
 
 t_llist			*read_first_line(int filedes, int *len)
 {
-	char		*buf;
 	int			total_read;
+	char		*buf;
 	t_llist		*head;
 	t_llist		*tail;
 
-	head = llist_create_element(malloc(CHUNK_SIZE));
+	buf = malloc(CHUNK_SIZE);
+	total_read = 0;
+	head = llist_create_element(buf);
 	tail = head;
-	while (read(filedes, (char*)tail->data, 1) > 0)
+	while (read(filedes, buf, 1) > 0)
 	{
-		if (*(char*)tail->data == '\n')
+		if (*buf == '\n')
 			break ;
+		buf++;
 		if (++total_read == CHUNK_SIZE)
 		{
-			tail->next = llist_create_element(malloc(CHUNK_SIZE));
+			buf = malloc(CHUNK_SIZE);
+			tail->next = llist_create_element(buf);
 			tail = tail->next;
 		}
 	}
@@ -62,40 +55,54 @@ t_llist			*read_first_line(int filedes, int *len)
 	return (head);
 }
 
-void			copy_first_line(t_llist list, char *buf, int width)
+void			copy_first_line(t_llist *list, char *buf, int width)
 {
-	t_llist		curr;
+	t_llist		*curr;
 	int			i;
 
+	i = 0;
 	curr = list;
-	while (list)
+	while (i < width)
 	{
-	
+		buf[i] = ((char*)curr->data)[i % CHUNK_SIZE];
+		if (++i == CHUNK_SIZE)
+			curr = curr->next;
 	}
+}
+
+static char			transform(char c, t_map *map)
+{
+	if (c == map->empty)
+		return (0);
+	else if (c == map->obstacle)
+		return (1);
+	//error
+	return (3);
 }
 
 t_map			*read_map(int filedes)
 {
 	t_map	*map;
-//	int		buf_size;
-//	int		num_read;
-//	char	*buf;
 	t_llist	*first_line;
-
+	char	*buf;
+	int		x;
+	int		y;
+	
 	map = read_meta(filedes);
 	first_line = read_first_line(filedes, &map->width);
 	map->tab = malloc(map->width * map->height * sizeof(char));
 	copy_first_line(first_line, map->tab, map->width);
+	buf = malloc(map->width * sizeof(char));
+	y = 0;
+	while (y < map->height && read(filedes, buf, map->width))
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			map->tab[x + map->width * y] = transform(buf[x], map);
+			x++;
+		}
+		y++;
+	}
 	return (map);
-}
-
-int main(int argc, char **argv)
-{
-	map *m = read_map(open(argv[1], O_RDONLY));
-	printf("w = %d\t", m->width);
-	printf("h = %d\t", m->height);
-	printf("empty = %c\t", m->empty);
-	printf("obstacle = %c\t", m->obstacle);
-	printf("full = %c\n", m->full);
-	(void)argc;
 }

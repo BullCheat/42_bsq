@@ -5,6 +5,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-map	*read_map(int filedes);
+t_map	*read_map(int filedes);
 
 #endif
