@@ -1,7 +1,6 @@
 #include "read_map.h"
 #include "llist.h"
 #include "lib.h"
-#include <stdio.h>
 
 static t_map	*read_meta(int filedes)
 {
@@ -68,6 +67,7 @@ static char			transform(char c, t_map *map)
 void copy_first_line(t_llist *list, t_map *map)
 {
 	t_llist		*curr;
+	t_llist		*old;
 	int			i;
 
 	i = 0;
@@ -76,8 +76,14 @@ void copy_first_line(t_llist *list, t_map *map)
 	{
 		map->tab[i] = transform(((char*)curr->data)[i % CHUNK_SIZE], map);
 		if (++i == CHUNK_SIZE)
+		{
+			old = curr;
 			curr = curr->next;
+			free(old);
+		}
 	}
+	if (curr != NULL)
+		free(curr);
 }
 
 t_map			*read_map(int filedes)

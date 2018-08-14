@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include <time.h>
 #include "read_map.h"
 #include "solver.h"
 #include "print_map.h"
@@ -19,6 +20,7 @@ int		bsq(int infile)
 	t_map		*map;
 
 	map = read_map(infile);
-	print_map(map, solve(map));
+	t_solution *sol = solve(map);
+	print_map(map, sol);
 	return (0);
 }

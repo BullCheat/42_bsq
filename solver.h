@@ -4,7 +4,6 @@
 #define BSQ_SOLVE_H
 
 #include "map.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 t_solution *solve(t_map *map);
