@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 23:02:25 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:42:12 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 23:46:04 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			print_map(t_map *map, t_solution *solution)
 	while (y < map->height)
 	{
 		x = 0;
-		while (x < map->height)
+		while (x < map->width)
 			write(1, transform(x++, y, map, solution ), 1);
 		write(1, "\n", 1);
 		y++;
