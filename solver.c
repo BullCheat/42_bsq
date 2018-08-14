@@ -28,14 +28,14 @@ t_solution *allocate_solution() {
 
 char check_vertical(int x, int y, int len, t_map *map) {
 	for (int i = 0; i <= len; i++) {
-		if (map->tab[(x + len) + (y + i) * map->width] & 1)
+		if (ignore(x + len, y + i, map) & 1)
 			return 0;
 	}
 	return 1;
 }
 char check_horizontal(int x, int y, int len, t_map *map) {
 	for (int i = 0; i <= len; i++) {
-		if (map->tab[(x + i) + (y + len) * map->width] & 1)
+		if (ignore(x + i, y + len, map) & 1)
 			return 0;
 	}
 	return 1;
