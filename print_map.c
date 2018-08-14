@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 23:02:25 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:46:04 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 23:47:49 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ static int		contains(t_solution *solution, int x, int y)
 	return (0);
 }
 
-static char		transform(int x, int y, t_map *map, t_solution *solution)
+static char		*transform(int x, int y, t_map *map, t_solution *solution)
 {
 	int		n;
 
 	if (contains(solution, x, y))
-		return (map->full);
+		return (&map->full);
 	n = map->tab[x + map->width * y];
 	if (n == 0)
-		return (map->empty);
+		return (&map->empty);
 	if (n == 1)
-		return (map->obstacle);
+		return (&map->obstacle);
 	//error;
-	return (123);
+	return (NULL);
 }
 
 void			print_map(t_map *map, t_solution *solution)
