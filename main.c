@@ -27,10 +27,12 @@ int		main(int argc, char **argv)
 		status = bsq(0);
 	else
 		while (i < argc)
-			if((infile = open(argv[i++], O_RDONLY)) == -1)
-				status = 1;// error("cannot open");
-			else
+		{
+			infile = open(argv[i++], O_RDONLY);
+			if (infile >= 0)
 				status = bsq(infile) || status;
+			else
+				status = 1;// error("cannot open");
+		}
 	exit(status);
-
 }
