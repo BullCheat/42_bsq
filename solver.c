@@ -14,37 +14,53 @@ char getCell(int x, int y, t_map *map) {
 }
 
 char ignore(int x, int y, t_map *map) {
+	char c = getCell(x, y, map);
 	map->tab[x + y * map->width] |= IGNORE;
-	return getCell(x, y, map);
+	return c;
+}
+
+t_solution *allocate_solution() {
+	t_solution *s = malloc(sizeof(t_solution));
+	s->len = 0;
+	s->x = 0;
+	s->y = 0;
+	return s;
+}
+
+char check_vertical(int x, int y, int len, t_map *map) {
+	for (int i = 0; i <= len; i++) {
+		if (map->tab[(x + len) + (y + i) * map->width] & 1)
+			return false;
+	}
+	return true;
+}
+char check_horizontal(int x, int y, int len, t_map *map) {
+	for (int i = 0; i <= len; i++) {
+		if (map->tab[(x + i) + (y + len) * map->width] & 1)
+			return false;
+	}
+	return true;
 }
 
 t_solution *solve(t_map *map)
 {
-	t_solution *sol = malloc(sizeof(t_solution));
-	for (int x = 0; x < map->width; x++) {
+	t_solution *sol = allocate_solution();
+	for (int y = 0; y < map->width; y++) {
 		// TODO optimize do not browse useless indexes
-		for (int y = 0; y < map->width; y++) {
+		for (int x = 0; x < map->width; x++) {
 			// TODO optimize do not browse useless indexes
 			// For each cell
-			char c = getCell(x, y, map);
-			if (c & IGNORE) continue; // TODO optimize
+			char c = ignore(x, y, map);
+			// if (c & IGNORE) continue; // TODO optimize
 			if (c & 1) continue; // if there's an obstacle
-			int end = min(map->width - x, map->height - x); // Max diagonal distance we can go to
+			int end = min(map->width - x, map->height - y); // Max diagonal distance we can go to
 			if (end < sol->len) continue; // TODO optimize
 			for (int i = 1; i < end; i++) {
-				bool br = 0;
-				for (int x1 = 0; x1 < i; x1++) {
-					char c = ignore(x1 + x, y + i, map);
-					if (br = c & 1)
-						break ;
-				}
-				if (!br)
-					for (int y1 = 0; y1 < i; y1++) {
-						char c = ignore(x + i, y1 + y, map);
-						if (br = c & 1)
-							break ;
-					}
-				if (br)
+				char a = check_vertical(x, y, i, map);
+				char b = check_horizontal(x, y, i, map);
+				if (x== 0 && y == 2)
+					printf("");
+				if (!a || !b || i == end-1)
 				{
 					if (i > sol->len)
 					{

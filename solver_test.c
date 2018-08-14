@@ -7,25 +7,32 @@
 
 #define LEN 20
 // Every 20 cells one obstacle
-#define DENSITY 25
+#define DENSITY 50
 
 int main() {
 	t_map *m = malloc(sizeof(t_map));
-	char *mem = malloc(LEN * LEN);
-	m->tab = mem;
+	m->tab = malloc(LEN * LEN);
 	m->width = m->height = LEN;
 	m->empty = ' ';
 	m->full = 'X';
 	m->obstacle = 'o';
-	t_solution *sol = solve(m);
-	for (int x = 0; x < LEN; x++) {
-		for (int y = 0; y < LEN; y++) {
+	srand(0);
+	for (int y = 0; y < LEN; y++) {
+		for (int x = 0; x < LEN; x++) {
 			char v = (rand() % DENSITY) == 0;
 			m->tab[x + LEN * y] = v;
-			if (x >= sol->x && x <= sol->x + sol->len && y >= sol->y && y <= sol->y + sol->len)
-				printf("%c", m->full);
+			printf("%c", m->tab[x + LEN * y] ? m->obstacle : m->empty);
+		}
+		printf("\n");
+	}
+	printf("\n--------------------\n\n");
+	t_solution *sol = solve(m);
+	for (int y = 0; y < LEN; y++) {
+		for (int x = 0; x < LEN; x++) {
+			if (x >= sol->x && x < sol->x + sol->len && y >= sol->y && y < sol->y + sol->len)
+				printf("%c", m->tab[x + LEN * y] & 1 ? '.' : m->full);
 			else
-				printf("%c", v ? m->obstacle : m->empty);
+				printf("%c", m->tab[x + LEN * y] & 1 ? m->obstacle : m->empty);
 		}
 		printf("\n");
 	}
