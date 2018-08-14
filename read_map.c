@@ -14,12 +14,12 @@
 #include "llist.h"
 #include "lib.h"
 
-static map		*read_meta(int filedes)
+static t_map	*read_meta(int filedes)
 {
 	int		num_read;
 	char	buf[16];
 	char	*cur_buf;
-	map		*map;
+	t_map	*map;
 
 	cur_buf = buf;
 	while ((num_read = read(filedes, cur_buf, 1)) > 0)
@@ -27,7 +27,7 @@ static map		*read_meta(int filedes)
 			break ;
 	//if (num_read == -1)
 		//error("read meta map");
-	if ((map = malloc(sizeof(map))) == 0)
+	if ((map = malloc(sizeof(t_map))) == 0)
 		/*error("malloc map")*/;
 	cur_buf = buf;
 	map->height = strptoi(&cur_buf);	
@@ -42,7 +42,7 @@ static map		*read_meta(int filedes)
 t_llist			*read_first_line(int filedes)
 {
 	char		*buf;
-	int			total_read
+	int			total_read;
 	t_llist		*head;
 	t_llist		*tail;
 
@@ -61,9 +61,9 @@ t_llist			*read_first_line(int filedes)
 	return (head);
 }
 
-map				*read_map(int filedes)
+t_map			*read_map(int filedes)
 {
-	map		*map;
+	t_map	*map;
 //	int		buf_size;
 //	int		num_read;
 //	char	*buf;

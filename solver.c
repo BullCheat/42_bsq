@@ -8,19 +8,19 @@ int min(int a, int b) {
 	return a < b ? a : b;
 }
 
-char getCell(int x, int y, map *map) {
+char getCell(int x, int y, t_map *map) {
 	// printf("Access %d\n", x + y * map->width);
 	return map->tab[x + y * map->width];
 }
 
-char ignore(int x, int y, map *map) {
+char ignore(int x, int y, t_map *map) {
 	map->tab[x + y * map->width] |= IGNORE;
 	return getCell(x, y, map);
 }
 
-solution *solve(map *map)
+t_solution *solve(t_map *map)
 {
-	solution *sol = malloc(sizeof(struct solution));
+	t_solution *sol = malloc(sizeof(t_solution));
 	for (int x = 0; x < map->width; x++) {
 		// TODO optimize do not browse useless indexes
 		for (int y = 0; y < map->width; y++) {

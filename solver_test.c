@@ -10,14 +10,14 @@
 #define DENSITY 25
 
 int main() {
-	map *m = malloc(sizeof(struct map));
+	t_map *m = malloc(sizeof(t_map));
 	char *mem = malloc(LEN * LEN);
 	m->tab = mem;
 	m->width = m->height = LEN;
 	m->empty = ' ';
 	m->full = 'X';
 	m->obstacle = 'o';
-	solution *sol = solve(m);
+	t_solution *sol = solve(m);
 	for (int x = 0; x < LEN; x++) {
 		for (int y = 0; y < LEN; y++) {
 			char v = (rand() % DENSITY) == 0;

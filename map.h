@@ -12,7 +12,7 @@
 
 #ifndef MAP_H
 # define MAP_H
-typedef struct	map
+typedef struct	s_map
 {
 	char		empty;
 	char		obstacle;
@@ -20,12 +20,12 @@ typedef struct	map
 	int			width;
 	int			height;
 	char		*tab;
-}				map;
+}				t_map;
 
-typedef struct	solution
+typedef struct	s_solution
 {
 	int			x;
 	int			y;
 	int			len;
-}				solution;
+}				t_solution;
 #endif
