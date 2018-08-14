@@ -44,7 +44,7 @@ t_llist			*read_first_line(int filedes, int *len)
 		if (*buf == '\n')
 			break ;
 		buf++;
-		if (++total_read == CHUNK_SIZE)
+		if (++total_read % CHUNK_SIZE == 0)
 		{
 			buf = malloc(CHUNK_SIZE);
 			tail->next = llist_create_element(buf);
