@@ -6,11 +6,12 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 23:02:25 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:40:34 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 23:42:12 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print_map.h"
+#include <unistd.h>
 
 static int		contains(t_solution *solution, int x, int y)
 {
