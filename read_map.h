@@ -3,7 +3,8 @@
 # include "map.h"
 # include <fcntl.h>
 # include <stdlib.h>
+# include <unistd.h>
 
-map	read_map(int filedes);
+map	*read_map(int filedes);
 
 #endif

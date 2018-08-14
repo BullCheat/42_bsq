@@ -35,23 +35,34 @@ static map		*read_meta(int filedes)
 	map->full = *cur_buf++;
 	return (map);
 }
-
 #include <stdio.h>
-
-int		main(int argc, char **argv)
-{
-	map		*m = read_meta(open(argv[1], O_RDONLY));
-	printf("h=%d\n", m->height);
-	printf("empty=%d\n", m->empty);
-	printf("obstacle=%d\n", m->obstacle);
-	printf("full=%d\n", m->full);
-	(void)argc;
-}
-
 map				*read_map(int filedes)
 {
 	map		*map;
+	//int		buf_size;
+	//int		num_read;
+	//char	*buf;
+	char	first_line[16];
+	int		i;
 
+	i = 0;
 	map = read_meta(filedes);
+	while ((read(filedes, first_line, 1)))
+		if (first_line[i] == '\n')
+			break ;
+		else
+			i++;
+	map->width = i - 1;
 	return (map);
+}
+
+int main(int argc, char **argv)
+{
+	map *m = read_map(open(argv[1], O_RDONLY));
+	printf("w = %d\t", m->width);
+	printf("h = %d\t", m->height);
+	printf("empty = %c\t", m->empty);
+	printf("obstacle = %c\t", m->obstacle);
+	printf("full = %c\n", m->full);
+	(void)argc;
 }
