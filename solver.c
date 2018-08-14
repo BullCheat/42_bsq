@@ -54,12 +54,12 @@ t_solution *solve(t_map *map)
 			if (c & 1) continue; // if there's an obstacle
 			int end = min(map->width - x, map->height - y); // Max diagonal distance we can go to
 			if (end < sol->len) continue; // TODO optimize
-			for (int i = 1; i < end; i++) {
+			for (int i = 1; i <= end; i++) {
 				char a = check_vertical(x, y, i, map);
 				char b = check_horizontal(x, y, i, map);
 				if (x== 0 && y == 2)
 					printf("");
-				if (!a || !b || i == end-1)
+				if (!a || !b || i == end)
 				{
 					if (i > sol->len)
 					{
