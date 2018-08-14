@@ -10,21 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		strptoi(char **strp)
+int		strptoi(char **s)
 {
 	int		n;
-	int		sign;
-	char	*s;
 
-	s = *strp;
-	while (*s <= ' ')
-		s++;
-	sign = *s == '-' ? -1 : 1;
-	if (*s == '-' || *s == '+')
-		s++;
 	n = 0;
-	while (*s >= '0' && *s <= '9')
-		n = n * 10 + *s++ - '0';
-	*strp = s;
-	return (n * sign);
+	while (**s >= '0' && **s <= '9')
+	{
+		n *= 10;
+		n += **s - '0';
+		(*s)++;
+	}
+	return (n);
 }
