@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bsq.c                                              :+:      :+:    :+:   */
+/*   bsq.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/13 12:06:29 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:38:20 by tkobb            ###   ########.fr       */
+/*   Created: 2018/08/13 23:33:16 by tkobb             #+#    #+#             */
+/*   Updated: 2018/08/13 23:34:09 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read_map.h"
-#include "solver.h"
-#include "print_map.h"
+#ifndef BSQ_H
+# define BSQ_H
 
-int		bsq(int infile)
-{
-	t_map		*map;
+int		bsq(int filedes);
 
-	map = read_map(infile);
-	print_map(map, solve(map));
-}
+#endif
