@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 12:06:29 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:38:20 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 23:43:23 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ int		bsq(int infile)
 
 	map = read_map(infile);
 	print_map(map, solve(map));
+	return (0);
 }
