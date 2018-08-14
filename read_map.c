@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 15:03:48 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 19:48:21 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 19:56:38 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static map		*read_meta(int filedes)
 
 #define CHUNK_SIZE 32
 
-t_llist			*read_first_line(int filedes)
+t_llist			*read_first_line(int filedes, int *len)
 {
 	char		*buf;
 	int			total_read
@@ -52,13 +52,26 @@ t_llist			*read_first_line(int filedes)
 	{
 		if (*(char*)tail->data == '\n')
 			break ;
-		if (++len == CHUNK_SIZE)
+		if (++total_read == CHUNK_SIZE)
 		{
 			tail->next = llist_create_element(malloc(CHUNK_SIZE));
 			tail = tail->next;
 		}
 	}
+	*len = total_read;
 	return (head);
+}
+
+void			copy_first_line(t_llist list, char *buf, int width)
+{
+	t_llist		curr;
+	int			i;
+
+	curr = list;
+	while (list)
+	{
+	
+	}
 }
 
 map				*read_map(int filedes)
@@ -67,7 +80,7 @@ map				*read_map(int filedes)
 //	int		buf_size;
 //	int		num_read;
 //	char	*buf;
-	char	*first_line;
+	t_llist	*first_line;
 
 	map = read_meta(filedes);
 	first_line = read_first_line(filedes, &map->width);
