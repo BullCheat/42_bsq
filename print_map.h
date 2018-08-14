@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 22:57:00 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:02:07 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 23:41:17 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define PRINT_MAP_H
 # include "map.h"
 
-void	print_map(t_map map, t_solution solution);
+void	print_map(t_map *map, t_solution *solution);
 
 #endif

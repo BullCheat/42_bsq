@@ -6,11 +6,19 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 23:02:25 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:20:03 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/13 23:40:34 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print_map.h"
+
+static int		contains(t_solution *solution, int x, int y)
+{
+	if (x >= solution->x && x < solution->x + solution->len
+		&& y >= solution->y && y < solution->y + solution->len)
+		return (1);
+	return (0);
+}
 
 static char		transform(int x, int y, t_map *map, t_solution *solution)
 {
@@ -23,14 +31,8 @@ static char		transform(int x, int y, t_map *map, t_solution *solution)
 		return (map->empty);
 	if (n == 1)
 		return (map->obstacle);
-}
-
-static int		contains(t_solution solution, x, y)
-{
-	if (x >= solution->x && x < solution->x + len
-		&& y >= solution->y && y < solution->y + len)
-		return (1);
-	return (0);
+	//error;
+	return (123);
 }
 
 void			print_map(t_map *map, t_solution *solution)
