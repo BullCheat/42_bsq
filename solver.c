@@ -1,6 +1,5 @@
 // FIXME header
 
-#include <stdbool.h>
 #include "solver.h"
 #define IGNORE 2
 
@@ -30,16 +29,16 @@ t_solution *allocate_solution() {
 char check_vertical(int x, int y, int len, t_map *map) {
 	for (int i = 0; i <= len; i++) {
 		if (map->tab[(x + len) + (y + i) * map->width] & 1)
-			return false;
+			return 0;
 	}
-	return true;
+	return 1;
 }
 char check_horizontal(int x, int y, int len, t_map *map) {
 	for (int i = 0; i <= len; i++) {
 		if (map->tab[(x + i) + (y + len) * map->width] & 1)
-			return false;
+			return 0;
 	}
-	return true;
+	return 1;
 }
 
 t_solution *solve(t_map *map)
