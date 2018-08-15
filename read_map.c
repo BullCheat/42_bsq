@@ -12,7 +12,6 @@
 
 #include "read_map.h"
 #include "first_line.h"
-#include "llist.h"
 #include "lib.h"
 #include "transform.h"
 #include "error.h"
@@ -48,17 +47,23 @@ static int		fill_map(int filedes, t_map *map)
 	char	*buf;
 
 	buf = malloc((map->width + 1) * sizeof(char));
-	y = 0;
-	while (y < map->height - 1 && read(filedes, buf, map->width + 1) > 0)
+	y = 1;
+	int temp;
+	while (y < map->height && (temp = read(filedes, buf, map->width + 1)) > 0)
 	{
+		if (temp < map->width) {
+			write(2, "Error\n", 6); // FIXME handle
+		}
 		x = 0;
 		while (x < map->width)
 		{
 			if ((c = transform_to(buf[x], map)) == ERROR)
 			{
+				write(2, buf, temp);
+				write(2, "\n", 1);
 				return (0);
 			}
-			map->tab[x++ + map->width * (1 + y)] = c;
+			map->tab[x++ + map->width * y] = c;
 		}
 		if (buf[x] != '\n')
 		{
@@ -66,7 +71,7 @@ static int		fill_map(int filedes, t_map *map)
 		}
 		y++;
 	}
-	if (y < map->height - 1)
+	if (y < map->height)
 		return (0);
 	if (read(filedes, buf, 1) != 0)
 		return (0);

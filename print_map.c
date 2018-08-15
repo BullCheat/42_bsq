@@ -31,6 +31,7 @@ void			print_map(t_map *map, t_solution *solution)
 	int		i;
 
 	y = 0;
+	i = 0;
 	while (y < map->height)
 	{
 		x = 0;
