@@ -15,6 +15,7 @@
 #include "lib.h"
 #include "transform.h"
 #include "error.h"
+#include "solver.h"
 
 static t_map	*read_meta(int filedes)
 {
@@ -68,6 +69,7 @@ static int		fill_map(int filedes, t_map *map)
 				write(2, "\n", 1);
 				return (0);
 			}
+			parse(c, x, y);
 			map->tab[x++ + map->width * y] = c;
 		}
 		if (buf[x] != '\n')
@@ -90,6 +92,7 @@ t_map			*read_map(int filedes)
 
 	map = read_meta(filedes);
 	first_line = read_first_line(filedes, &map->width);
+	initialize(map->width);
 	map->tab = malloc(map->width * map->height * sizeof(char));
 	if (copy_first_line(first_line, map) == 0)
 		return (NULL);

@@ -13,6 +13,7 @@
 #include "first_line.h"
 #include "read_map.h"
 #include "transform.h"
+#include "solver.h"
 
 t_llist			*read_first_line(int filedes, int *len)
 {
@@ -54,6 +55,7 @@ int				copy_first_line(t_llist *list, t_map *map)
 		c = transform_to(((char*)curr->data)[i % CHUNK_SIZE], map);
 		if (c == ERROR)
 			return (0);
+		parse(c, i, 0);
 		map->tab[i] = c;
 		if (++i == CHUNK_SIZE)
 			curr = curr->next;
