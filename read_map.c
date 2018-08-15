@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 10:46:12 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 16:16:29 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:48:22 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@
 #include "error.h"
 #include "solver.h"
 
-void set(long x, long y, t_map *map) {
-	long i = (x + y * map->width);
-	long id = i >> 3;
+void		set(long x, long y, t_map *map)
+{
+	long i;
+	long id;
+
+	i = (x + y * map->width);
+	id = i >> 3;
 	map->tab[id] |= map->tab[id] | 1 << (i & 7);
 }
 
 static t_map	*read_meta(int filedes)
 {
-	long		num_read;
+	long	num_read;
 	char	buf[16];
 	char	*cur_buf;
 	t_map	*map;
@@ -48,22 +52,24 @@ static t_map	*read_meta(int filedes)
 
 static int		fill_map(int filedes, t_map *map)
 {
-	long		x;
-	long		y;
+	long	x;
+	long	y;
 	char	c;
 	char	*buf;
+	int		temp;
 
 	buf = malloc((map->width + 1) * sizeof(char));
 	y = 1;
 	while (y < map->height)
 	{
-		int temp = read(filedes, buf, map->width + 1);
+		temp = read(filedes, buf, map->width + 1);
 		if (temp == 0)
 		{
-			write(2, "Error\n", 6);
-			break;
+			write(2, "Error\n", 6); // FIXME pls
+			break ;
 		}
-		while (temp < map->width) {
+		while (temp < map->width)
+		{
 			temp += read(filedes, buf + temp, map->width + 1 - temp);
 		}
 		x = 0;
@@ -93,13 +99,19 @@ static int		fill_map(int filedes, t_map *map)
 	return (1);
 }
 
-void *allocate(long size) {
-	long *a = malloc(size / 8 + sizeof(long));
-	size /= 8 * sizeof(long);
-	for (int i = 0; i < size + 1; i++) {
-		a[i] = 0;
+void			*allocate(long size)
+{
+	long	*a;
+	int		i;
+
+	a = malloc(size + sizeof(long));
+	size /= sizeof(long);
+	i = 0;
+	while (i < size + 1)
+	{
+		a[i++] = 0;
 	}
-	return a;
+	return (a);
 }
 
 t_map			*read_map(int filedes)
