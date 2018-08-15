@@ -56,7 +56,7 @@ t_map			*read_map(int filedes)
 		return (NULL);
 	buf = malloc((map->width + 1) * sizeof(char));
 	y = 0;
-	while (y < map->height - 1 && read(filedes, buf, map->width + 1))
+	while (y < map->height - 1 && read(filedes, buf, map->width + 1) > 0)
 	{
 		x = 0;
 		while (x < map->width)
@@ -71,5 +71,9 @@ t_map			*read_map(int filedes)
 			return (NULL);
 		y++;
 	}
+	if (y < map->height - 1)
+		return (NULL);
+	if (read(filedes, buf, 1) != 0)
+		return (NULL);
 	return (map);
 }
