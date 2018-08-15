@@ -6,5 +6,6 @@
 # include <unistd.h>
 
 t_map	*read_map(int filedes);
+char	transform(char c, t_map *map);
 
 #endif

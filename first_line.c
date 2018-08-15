@@ -6,12 +6,15 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:45:15 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/14 20:48:07 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/14 21:21:41 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "first_line.h"
 #include "read_map.h"
+
+//TODO: use transform.h
+#define ERROR 127
 
 t_llist			*read_first_line(int filedes, int *len)
 {
@@ -40,19 +43,21 @@ t_llist			*read_first_line(int filedes, int *len)
 	return (head);
 }
 
-#define ERROR 9
-
-void copy_first_line(t_llist *list, t_map *map)
+int			copy_first_line(t_llist *list, t_map *map)
 {
 	t_llist		*curr;
 	int			i;
+	char		c;
 
 	i = 0;
 	curr = list;
 	while (i < map->width)
 	{
-		map->tab[i] = transform(((char*)curr->data)[i % CHUNK_SIZE], map);
+		if((c = transform(((char*)curr->data)[i % CHUNK_SIZE], map)) == ERROR)
+			return (0);
+		map->tab[i] = c;
 		if (++i == CHUNK_SIZE)
 			curr = curr->next;
 	}
+	return (1);
 }

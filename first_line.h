@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:42:48 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/14 20:45:36 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/14 21:19:06 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include "map.h"
 
 t_llist		*read_first_line(int filedes, int *len);
-void		copy_first_line(t_llist *list, t_map *map);
+int			copy_first_line(t_llist *list, t_map *map);
 
 #endif
