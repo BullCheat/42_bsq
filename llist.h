@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 19:20:19 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 22:54:24 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 11:28:49 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ typedef struct		s_llist
 	struct s_llist	*next;
 }					t_llist;
 
-t_llist				*llist_create_element(void* data);
+t_llist				*llist_create_element(void *data);
 
 #endif

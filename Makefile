@@ -6,13 +6,22 @@
 #    By: tkobb <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/14 09:17:57 by tkobb             #+#    #+#              #
-#    Updated: 2018/08/15 01:41:52 by adrean           ###   ########.fr        #
+#    Updated: 2018/08/15 09:42:16 by tkobb            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = bsq
 FLAGS = -Wall -Wextra -Werror -O3 -m32
-SRCS = lib.c llist.c error.c first_line.c read_map.c print_map.c solver.c bsq.c main.c
+SRCS = lib.c \
+	   llist.c \
+	   error.c \
+	   first_line.c \
+	   transform.c \
+	   read_map.c \
+	   print_map.c \
+	   solver.c \
+	   bsq.c \
+	   main.c
 
 all: $(NAME)
 

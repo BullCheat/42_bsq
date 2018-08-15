@@ -6,13 +6,14 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 11:55:09 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/14 21:12:49 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 11:44:13 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include "error.h"
 #include "bsq.h"
 
 int		main(int argc, char **argv)
@@ -24,7 +25,10 @@ int		main(int argc, char **argv)
 	i = 1;
 	status = 0;
 	if (argc == 1)
+	{
 		status = bsq(0);
+		write(1, "\n", 1);
+	}
 	else
 		while (i < argc)
 		{
@@ -32,7 +36,10 @@ int		main(int argc, char **argv)
 			if (infile >= 0)
 				status = bsq(infile) || status;
 			else
-				status = 1;// error("cannot open");
+			{
+				error("cannot open", 13);
+				status = 1;
+			}
 			write(1, "\n", 1);
 		}
 	exit(status);
