@@ -56,7 +56,8 @@ int				copy_first_line(t_llist *list, t_map *map)
 		if (c == ERROR)
 			return (0);
 		parse(c, i, 0);
-		map->tab[i] = c;
+		if (c)
+			set(i, 0, map);
 		if (++i == CHUNK_SIZE)
 			curr = curr->next;
 	}
