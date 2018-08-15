@@ -19,14 +19,12 @@
 int		main(int argc, char **argv)
 {
 	int		infile;
-	int		status;
 	int		i;
 
 	i = 1;
-	status = 0;
 	if (argc == 1)
 	{
-		status = bsq(0);
+		bsq(0);
 		write(1, "\n", 1);
 	}
 	else
@@ -34,14 +32,11 @@ int		main(int argc, char **argv)
 		{
 			infile = open(argv[i++], O_RDONLY);
 			if (infile >= 0)
-				status = bsq(infile) || status;
+				bsq(infile);
 			else
-			{
 				error("cannot open", 13);
-				status = 1;
-			}
 			if (i != argc)
 				write(1, "\n", 1);
 		}
-	exit(status);
+	return (0);
 }
