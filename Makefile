@@ -6,12 +6,12 @@
 #    By: tkobb <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/14 09:17:57 by tkobb             #+#    #+#              #
-#    Updated: 2018/08/15 13:03:21 by adrean           ###   ########.fr        #
+#    Updated: 2018/08/15 16:02:11 by adrean           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = bsq
-FLAGS = -Wall -Wextra -Werror -O3 -m32
+FLAGS = -Wall -Wextra -Werror -O2
 SRCS = lib.c \
 	   llist.c \
 	   error.c \

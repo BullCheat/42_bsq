@@ -27,11 +27,10 @@ int		bsq(int infile)
 	clock_t read = clock();
 	// t_solution *sol = solve_1(map);
 	clock_t solve = clock();
-	// print_map(map, sol);
+	t_solution *sol2 = get_solution();
+	print_map(map, sol2);
 	clock_t print = clock();
 	printf("\n\n");
-	t_solution *sol2 = get_solution();
-	// print_map(map, get_solution());
 	// printf("sol1 = %d %d %d\n", sol->len, sol->x, sol->y);
 	printf("sol2 = %d %d %d\n", sol2->len, sol2->x, sol2->y);
 	printf("read  = %lums\nsolve = %lums\nprint = %lums\n", (read - start) * 1000 / CLOCKS_PER_SEC, (solve - read) * 1000 / CLOCKS_PER_SEC, (print - solve) * 1000 / CLOCKS_PER_SEC);

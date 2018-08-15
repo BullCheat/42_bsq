@@ -12,6 +12,12 @@
 
 #include "transform.h"
 
+
+char readmap(int x, int y, t_map *map) {
+	int i = (x + y * map->width);
+	return (map->tab[i >> 3] >> (i & 7)) & 1;
+}
+
 char			transform_to(char c, t_map *map)
 {
 	if (c == map->empty)
@@ -37,7 +43,7 @@ char			transform_from(int x, int y, t_map *map, t_solution *solution)
 
 	if (contains(solution, x, y))
 		return (map->full);
-	n = map->tab[x + map->width * y] & 1;
+	n = readmap(x, y, map);
 	if (n == 0)
 		return (map->empty);
 	return (map->obstacle);

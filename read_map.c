@@ -17,6 +17,12 @@
 #include "error.h"
 #include "solver.h"
 
+void set(int x, int y, t_map *map) {
+	int i = (x + y * map->width);
+	int id = i >> 3;
+	map->tab[id] |= map->tab[id] | 1 << (i & 7);
+}
+
 static t_map	*read_meta(int filedes)
 {
 	int		num_read;
@@ -70,7 +76,9 @@ static int		fill_map(int filedes, t_map *map)
 				return (0);
 			}
 			parse(c, x, y);
-			map->tab[x++ + map->width * y] = c;
+			if (c)
+				set(x, y, map);
+			x++;
 		}
 		if (buf[x] != '\n')
 		{
@@ -85,6 +93,15 @@ static int		fill_map(int filedes, t_map *map)
 	return (1);
 }
 
+void *allocate(long size) {
+	long *a = malloc(size + sizeof(long));
+	size /= sizeof(long);
+	for (int i = 0; i < size + 1; i++) {
+		a[i] = 0;
+	}
+	return a;
+}
+
 t_map			*read_map(int filedes)
 {
 	t_map	*map;
@@ -93,7 +110,7 @@ t_map			*read_map(int filedes)
 	map = read_meta(filedes);
 	first_line = read_first_line(filedes, &map->width);
 	initialize(map->width);
-	map->tab = malloc(map->width * map->height * sizeof(char));
+	map->tab = allocate(map->width * map->height);
 	if (copy_first_line(first_line, map) == 0)
 		return (NULL);
 	if (fill_map(filedes, map) == 0)
