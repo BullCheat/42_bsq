@@ -21,7 +21,7 @@ int		bsq(int infile)
 
 	if ((map = read_map(infile)) == NULL)
 		return (map_error());
-	t_solution *sol = solve(map);
+	t_solution *sol = solve_1(map);
 	print_map(map, sol);
 	return (0);
 }
