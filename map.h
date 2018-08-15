@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 14:56:03 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 11:29:18 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:52:05 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ typedef struct	s_map
 
 typedef struct	s_solution
 {
-	int			x;
-	int			y;
-	int			len;
+	long		x;
+	long		y;
+	long		len;
 }				t_solution;
 
 #endif
