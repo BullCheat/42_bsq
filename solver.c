@@ -1,22 +1,8 @@
 // FIXME header
 
 #include "solver.h"
-#define IGNORE 2
-
-int min(int a, int b) {
-	return a < b ? a : b;
-}
-
-char getCell(int x, int y, t_map *map) {
-	// printf("Access %d\n", x + y * map->width);
-	return map->tab[x + y * map->width];
-}
-
-char ignore(int x, int y, t_map *map) {
-	char c = getCell(x, y, map);
-	map->tab[x + y * map->width] |= IGNORE;
-	return c;
-}
+#define getCell(x, y, map) map->tab[x + y * map->width]
+#define min(a, b) a < b ? a : b
 
 t_solution *allocate_solution() {
 	t_solution *s = malloc(sizeof(t_solution));
@@ -28,15 +14,27 @@ t_solution *allocate_solution() {
 
 char check_vertical(int x, int y, int len, t_map *map) {
 	for (int i = 0; i <= len; i++) {
-		if (ignore(x + len, y + i, map) & 1)
+		if (getCell(x + len, y + i, map))
 			return 0;
 	}
 	return 1;
 }
 char check_horizontal(int x, int y, int len, t_map *map) {
-	for (int i = 0; i <= len; i++) {
-		if (ignore(x + i, y + len, map) & 1)
-			return 0;
+	void *address = map->tab + x + (y + len) * map->width;
+	while (len)
+	{
+		/*if (len >= 4 && ((int)address & 3) == 0)
+		{
+			if (*(int *) (address))
+				return 0;
+			len -= 4;
+			address += 4;
+		} else {*/
+			if (*(char*)address)
+				return 0;
+			len--;
+			address++;
+		//}
 	}
 	return 1;
 }
@@ -44,21 +42,19 @@ char check_horizontal(int x, int y, int len, t_map *map) {
 t_solution *solve(t_map *map)
 {
 	t_solution *sol = allocate_solution();
-	for (int y = 0; y < map->width; y++) {
-		// TODO optimize do not browse useless indexes
-		for (int x = 0; x < map->width; x++) {
-			// TODO optimize do not browse useless indexes
+	for (int y = 0; y < map->width - sol->len; y++) {
+		for (int x = 0; x < map->width - sol->len; x++) {
 			// For each cell
-			char c = ignore(x, y, map);
-			// if (c & IGNORE) continue; // TODO optimize
-			if (c & 1) continue; // if there's an obstacle
-			int end = min(map->width - x, map->height - y); // Max diagonal distance we can go to
-			if (end < sol->len) continue; // TODO optimize
+			int endx = map->width - x;
+			int endy = map->height - y;
+			int end = min(endx, endy); // Max diagonal distance we can go to
+			if (getCell(x, y, map)) continue; // if there's an obstacle
+			if (x == 48 && y == 26) {
+				1 + 1;
+			}
 			for (int i = 1; i <= end; i++) {
 				char a = check_vertical(x, y, i, map);
 				char b = check_horizontal(x, y, i, map);
-				if (x== 0 && y == 2)
-					printf("");
 				if (!a || !b || i == end)
 				{
 					if (i > sol->len)

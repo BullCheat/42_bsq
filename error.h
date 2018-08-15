@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bsq.c                                              :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/13 12:06:29 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/14 23:09:18 by adrean           ###   ########.fr       */
+/*   Created: 2018/08/14 20:56:53 by tkobb             #+#    #+#             */
+/*   Updated: 2018/08/14 21:10:37 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <time.h>
-#include "read_map.h"
-#include "solver.h"
-#include "print_map.h"
-#include "error.h"
+#ifndef ERROR_H
+# define ERROR_H
+# include <unistd.h>
 
-int		bsq(int infile)
-{
-	t_map		*map;
+int		map_error(void);
+int		error(char *msg, int len);
 
-	if ((map = read_map(infile)) == NULL)
-		return (map_error());
-	print_map(map, solve(map));
-	return (0);
-}
+#endif

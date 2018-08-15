@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 11:55:09 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 23:42:57 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/14 21:12:49 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		main(int argc, char **argv)
 				status = bsq(infile) || status;
 			else
 				status = 1;// error("cannot open");
+			write(1, "\n", 1);
 		}
 	exit(status);
 }
