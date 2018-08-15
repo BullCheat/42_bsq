@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 23:02:25 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 10:44:18 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:17:09 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "transform.h"
 #include <unistd.h>
 
-void			try_flush_buf(char *buf, int *len)
+void			try_flush_buf(char *buf, long *len)
 {
 	if (*len == BUF_SIZE)
 	{
@@ -26,9 +26,9 @@ void			try_flush_buf(char *buf, int *len)
 void			print_map(t_map *map, t_solution *solution)
 {
 	char	buf[BUF_SIZE];
-	int		x;
-	int		y;
-	int		i;
+	long	x;
+	long	y;
+	long	i;
 
 	y = 0;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:45:15 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 11:35:02 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:13:42 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_llist			*read_first_line(int filedes, int *len)
 int				copy_first_line(t_llist *list, t_map *map)
 {
 	t_llist		*curr;
-	int			i;
+	long		i;
 	char		c;
 
 	i = 0;

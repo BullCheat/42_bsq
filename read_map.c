@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 10:46:12 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 12:56:31 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:16:29 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 #include "error.h"
 #include "solver.h"
 
-void set(int x, int y, t_map *map) {
-	int i = (x + y * map->width);
-	int id = i >> 3;
+void set(long x, long y, t_map *map) {
+	long i = (x + y * map->width);
+	long id = i >> 3;
 	map->tab[id] |= map->tab[id] | 1 << (i & 7);
 }
 
 static t_map	*read_meta(int filedes)
 {
-	int		num_read;
+	long		num_read;
 	char	buf[16];
 	char	*cur_buf;
 	t_map	*map;
@@ -48,8 +48,8 @@ static t_map	*read_meta(int filedes)
 
 static int		fill_map(int filedes, t_map *map)
 {
-	int		x;
-	int		y;
+	long		x;
+	long		y;
 	char	c;
 	char	*buf;
 
