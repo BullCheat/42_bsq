@@ -50,7 +50,7 @@ t_solution *solve(t_map *map)
 			int end = min(endx, endy); // Max diagonal distance we can go to
 			if (getCell(x, y, map)) continue; // if there's an obstacle
 			if (x == 48 && y == 26) {
-				1 + 1;
+//				1 + 1;
 			}
 			for (int i = 1; i <= end; i++) {
 				char a = check_vertical(x, y, i, map);

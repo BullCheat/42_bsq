@@ -6,12 +6,13 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 14:56:03 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/13 15:00:46 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 11:29:18 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
+
 typedef struct	s_map
 {
 	char		empty;
@@ -28,4 +29,5 @@ typedef struct	s_solution
 	int			y;
 	int			len;
 }				t_solution;
+
 #endif
