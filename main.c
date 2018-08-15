@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 11:55:09 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 11:44:13 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 15:38:35 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int		main(int argc, char **argv)
 				error("cannot open", 13);
 				status = 1;
 			}
-			write(1, "\n", 1);
+			if (i != argc)
+				write(1, "\n", 1);
 		}
 	exit(status);
 }
