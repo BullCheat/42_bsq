@@ -94,8 +94,8 @@ static int		fill_map(int filedes, t_map *map)
 }
 
 void *allocate(long size) {
-	long *a = malloc(size + sizeof(long));
-	size /= sizeof(long);
+	long *a = malloc(size / 8 + sizeof(long));
+	size /= 8 * sizeof(long);
 	for (int i = 0; i < size + 1; i++) {
 		a[i] = 0;
 	}
