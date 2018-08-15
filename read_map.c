@@ -2,7 +2,7 @@
 #include "first_line.h"
 #include "llist.h"
 #include "lib.h"
-#include <stdio.h>
+#include "transform.h"
 #include "error.h"
 
 static t_map	*read_meta(int filedes)
@@ -28,18 +28,6 @@ static t_map	*read_meta(int filedes)
 	return (map);
 }
 
-#define ERROR 127
-char			transform(char c, t_map *map)
-{
-	if (c == map->empty)
-		return (0);
-	else if (c == map->obstacle)
-		return (1);
-	//error
-	return (ERROR);
-}
-
-
 t_map			*read_map(int filedes)
 {
 	t_map	*map;
@@ -61,7 +49,7 @@ t_map			*read_map(int filedes)
 		x = 0;
 		while (x < map->width)
 		{
-			c = transform(buf[x], map);
+			c = transform_to(buf[x], map);
 			if (c == ERROR)
 				return (NULL);
 			map->tab[x + map->width * (1+y)] = c;
