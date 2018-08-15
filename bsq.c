@@ -6,10 +6,11 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 12:06:29 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/14 21:09:09 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/14 23:09:18 by adrean           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include <time.h>
 #include "read_map.h"
 #include "solver.h"
 #include "print_map.h"
