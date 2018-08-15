@@ -67,6 +67,8 @@ t_map			*read_map(int filedes)
 			map->tab[x + map->width * (1+y)] = c;
 			x++;
 		}
+		if (buf[x] != '\n')
+			return (NULL);
 		y++;
 	}
 	return (map);
