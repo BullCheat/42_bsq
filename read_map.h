@@ -18,7 +18,6 @@
 # include <unistd.h>
 
 t_map	*read_map(int filedes);
-char	transform(char c, t_map *map);
-void set(long x, long y, t_map *map);
+void	set(long x, long y, t_map *map);
 
 #endif

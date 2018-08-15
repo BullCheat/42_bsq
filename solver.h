@@ -1,15 +1,23 @@
-// FIXME HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solver.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adrean <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/15 16:53:28 by adrean            #+#    #+#             */
+/*   Updated: 2018/08/15 16:53:29 by adrean           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#ifndef BSQ_SOLVE_H
-#define BSQ_SOLVE_H
+#ifndef SOLVER_H
+# define SOLVER_H
 
-#include "map.h"
-#include <stdlib.h>
+# include "map.h"
+# include <stdlib.h>
 
-void initialize(int width);
-void parse(char c, int x, int y);
-t_solution *get_solution();
-t_solution *solve(t_map *map);
-t_solution *solve_1(t_map *map);
+void		initialize(int width);
+void		parse(char c, int x, int y);
+t_solution	*get_solution();
 
-#endif //BSQ_SOLVE_H
+#endif

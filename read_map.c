@@ -17,7 +17,7 @@
 #include "error.h"
 #include "solver.h"
 
-void		set(long x, long y, t_map *map)
+void			set(long x, long y, t_map *map)
 {
 	long i;
 	long id;
@@ -65,7 +65,7 @@ static int		fill_map(int filedes, t_map *map)
 		temp = read(filedes, buf, map->width + 1);
 		if (temp == 0)
 		{
-			write(2, "Error\n", 6); // FIXME pls
+			write(2, "Error\n", 6);
 			break ;
 		}
 		while (temp < map->width)
