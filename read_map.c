@@ -48,11 +48,16 @@ static int		fill_map(int filedes, t_map *map)
 
 	buf = malloc((map->width + 1) * sizeof(char));
 	y = 1;
-	int temp;
-	while (y < map->height && (temp = read(filedes, buf, map->width + 1)) > 0)
+	while (y < map->height)
 	{
-		if (temp < map->width) {
-			write(2, "Error\n", 6); // FIXME handle
+		int temp = read(filedes, buf, map->width + 1);
+		if (temp == 0)
+		{
+			write(2, "Error\n", 6);
+			break;
+		}
+		while (temp < map->width) {
+			temp += read(filedes, buf + temp, map->width + 1 - temp);
 		}
 		x = 0;
 		while (x < map->width)
