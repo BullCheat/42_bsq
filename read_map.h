@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 11:29:44 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 11:29:46 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:20:16 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 t_map	*read_map(int filedes);
 char	transform(char c, t_map *map);
-void set(int x, int y, t_map *map);
+void set(long x, long y, t_map *map);
 
 #endif
