@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 23:02:25 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 09:41:11 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 09:53:40 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 
 void			print_map(t_map *map, t_solution *solution)
 {
+	char	buf[BUF_SIZE];
 	int		x;
 	int		y;
+	int		i;
 
 	y = 0;
 	while (y < map->height)
@@ -25,10 +27,15 @@ void			print_map(t_map *map, t_solution *solution)
 		x = 0;
 		while (x < map->width)
 		{
+			if (i == BUF_SIZE)
+			{
+				i = 0;
+				write(1, buf, BUF_SIZE);
+			}
 			char c = transform_from(x++, y, map, solution);
-			write(1, &c, 1);
+			buf[i++] = c;
 		}
-		write(1, "\n", 1);
+		buf[i++] = '\n';
 		y++;
 	}
 }
