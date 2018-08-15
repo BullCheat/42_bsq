@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 10:46:12 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 11:27:35 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 12:56:31 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,15 @@ static int		fill_map(int filedes, t_map *map)
 		while (x < map->width)
 		{
 			if ((c = transform_to(buf[x], map)) == ERROR)
+			{
 				return (0);
+			}
 			map->tab[x++ + map->width * (1 + y)] = c;
 		}
 		if (buf[x] != '\n')
+		{
 			return (0);
+		}
 		y++;
 	}
 	if (y < map->height - 1)
