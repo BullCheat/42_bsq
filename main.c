@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 11:55:09 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 10:39:01 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 11:44:13 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int		main(int argc, char **argv)
 	i = 1;
 	status = 0;
 	if (argc == 1)
+	{
 		status = bsq(0);
+		write(1, "\n", 1);
+	}
 	else
 		while (i < argc)
 		{
