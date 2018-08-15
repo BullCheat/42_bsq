@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/08/15 10:46:12 by tkobb             #+#    #+#             */
+/*   Updated: 2018/08/15 10:58:28 by tkobb            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "read_map.h"
 #include "first_line.h"
 #include "llist.h"
@@ -28,20 +40,13 @@ static t_map	*read_meta(int filedes)
 	return (map);
 }
 
-t_map			*read_map(int filedes)
+static int		fill_map(int filedes, t_map *map)
 {
-	t_map	*map;
-	t_llist	*first_line;
-	char	*buf;
 	int		x;
 	int		y;
 	char	c;
+	char	*buf;
 
-	map = read_meta(filedes);
-	first_line = read_first_line(filedes, &map->width);
-	map->tab = malloc(map->width * map->height * sizeof(char));
-	if (copy_first_line(first_line, map) == 0)
-		return (NULL);
 	buf = malloc((map->width + 1) * sizeof(char));
 	y = 0;
 	while (y < map->height - 1 && read(filedes, buf, map->width + 1) > 0)
@@ -49,19 +54,33 @@ t_map			*read_map(int filedes)
 		x = 0;
 		while (x < map->width)
 		{
-			c = transform_to(buf[x], map);
-			if (c == ERROR)
-				return (NULL);
-			map->tab[x + map->width * (1+y)] = c;
+			if ((c = transform_to(buf[x], map)) == ERROR)
+				return (0);
+			map->tab[x + map->width * (1 + y)] = c;
 			x++;
 		}
 		if (buf[x] != '\n')
-			return (NULL);
+			return (0);
 		y++;
 	}
 	if (y < map->height - 1)
-		return (NULL);
+		return (0);
 	if (read(filedes, buf, 1) != 0)
+		return (0);
+	return (1);
+}
+
+t_map			*read_map(int filedes)
+{
+	t_map	*map;
+	t_llist	*first_line;
+
+	map = read_meta(filedes);
+	first_line = read_first_line(filedes, &map->width);
+	map->tab = malloc(map->width * map->height * sizeof(char));
+	if (copy_first_line(first_line, map) == 0)
+		return (NULL);
+	if (fill_map(filedes, map) == 0)
 		return (NULL);
 	return (map);
 }

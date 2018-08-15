@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:45:15 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 09:37:05 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 10:38:36 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_llist			*read_first_line(int filedes, int *len)
 	return (head);
 }
 
-int			copy_first_line(t_llist *list, t_map *map)
+int				copy_first_line(t_llist *list, t_map *map)
 {
 	t_llist		*curr;
 	int			i;
@@ -51,7 +51,8 @@ int			copy_first_line(t_llist *list, t_map *map)
 	curr = list;
 	while (i < map->width)
 	{
-		if((c = transform_to(((char*)curr->data)[i % CHUNK_SIZE], map)) == ERROR)
+		c = transform_to(((char*)curr->data)[i % CHUNK_SIZE], map);
+		if (c == ERROR)
 			return (0);
 		map->tab[i] = c;
 		if (++i == CHUNK_SIZE)
