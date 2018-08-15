@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:50:56 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 09:42:51 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:52:37 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # define ERROR 127
 
 char	transform_to(char c, t_map *map);
-char	transform_from(int x, int y, t_map *map, t_solution *solution);
+char	transform_from(long x, long y, t_map *map, t_solution *solution);
 
 #endif

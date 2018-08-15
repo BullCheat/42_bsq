@@ -6,16 +6,18 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 09:33:06 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 11:28:03 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:51:14 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "transform.h"
 
+char			readmap(long x, long y, t_map *map)
+{
+	long i;
 
-char readmap(int x, int y, t_map *map) {
-	int i = (x + y * map->width);
-	return (map->tab[i >> 3] >> (i & 7)) & 1;
+	i = (x + y * map->width);
+	return ((map->tab[i >> 3] >> (i & 7)) & 1);
 }
 
 char			transform_to(char c, t_map *map)
@@ -27,7 +29,7 @@ char			transform_to(char c, t_map *map)
 	return (ERROR);
 }
 
-static char		contains(t_solution *solution, int x, int y)
+static char		contains(t_solution *solution, long x, long y)
 {
 	if (solution == (NULL))
 		return (0);
@@ -37,9 +39,9 @@ static char		contains(t_solution *solution, int x, int y)
 	return (0);
 }
 
-char			transform_from(int x, int y, t_map *map, t_solution *solution)
+char			transform_from(long x, long y, t_map *map, t_solution *solution)
 {
-	int		n;
+	long	n;
 
 	if (contains(solution, x, y))
 		return (map->full);
