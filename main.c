@@ -33,5 +33,19 @@ int		main(int argc, char **argv)
 			else
 				map_error();
 		}
+	/*t_map *m = malloc(sizeof(t_map));
+	m->obstacle = 'o';
+	m->empty = '.';
+	m->full = 'x';
+	m->height = 100;
+	m->width = 100;
+	m->tab = allocate(m->height * m->width);
+	set(34, 27, m);
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 100; j++) {
+			if (read_from_mem(i, j, m) && (i != 34 || j != 27))
+				break;
+		}
+	}*/
 	return (0);
 }

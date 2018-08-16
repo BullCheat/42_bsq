@@ -20,5 +20,6 @@
 char	transform_to(char c, const t_map *map);
 char	transform_from(ULONG x, ULONG y,
 				const t_map *map, const t_solution *solution);
+char		read_from_mem(long x, long y, const t_map *map);
 
 #endif

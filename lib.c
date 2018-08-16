@@ -33,10 +33,9 @@ unsigned long	stol(char *s, int num)
 void			set(long x, long y, const t_map *map)
 {
 	long i;
-	// long id;
+	long std;
 
 	i = (x + y * map->width);
-	/*id = i / sizeof(long); // TODO check perf long char int short
-	((long *)map->tab)[id] |= 1 << (i % sizeof(long));*/
-	((long *)map->tab)[i] = 1;
+	std = sizeof(long) * 8; // todo check perf long int
+	((long *)map->tab)[i / std] |= 1L << (i % std);
 }

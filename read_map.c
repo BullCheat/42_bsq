@@ -91,15 +91,16 @@ static int		fill_map(int filedes, const t_map *map)
 	return (1);
 }
 
-void			*allocate(long size)
+void			*allocate(unsigned long size)
 {
-	long	*a;
-	int		i;
+	long			*a;
+	unsigned long	i;
 
-	a = malloc(size * sizeof(long));
-	// size /= sizeof(long);
+	size /= 8;
+	a = malloc(size + sizeof(long));
+	size /= sizeof(long);
 	i = 0;
-	while (i < size/* + 1*/)
+	while (i <= size)
 	{
 		a[i++] = 0;
 	}
