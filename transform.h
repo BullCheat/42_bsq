@@ -15,8 +15,9 @@
 # include "map.h"
 # include <stdlib.h>
 # define ERROR 127
+# define ULONG unsigned long
 
-char	transform_to(char c, t_map *map);
-char	transform_from(long x, long y, t_map *map, t_solution *solution);
+char	transform_to(char c, const t_map *map);
+char	transform_from(ULONG x, ULONG y, t_map *map, t_solution *solution);
 
 #endif

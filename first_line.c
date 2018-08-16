@@ -15,12 +15,12 @@
 #include "transform.h"
 #include "solver.h"
 
-t_llist			*read_first_line(int filedes, int *len)
+t_llist			*read_first_line(int filedes, unsigned long *len)
 {
-	int			total_read;
-	char		*buf;
-	t_llist		*head;
-	t_llist		*tail;
+	unsigned long	total_read;
+	char			*buf;
+	t_llist			*head;
+	t_llist			*tail;
 
 	buf = malloc(CHUNK_SIZE);
 	total_read = 0;
@@ -42,7 +42,7 @@ t_llist			*read_first_line(int filedes, int *len)
 	return (head);
 }
 
-int				copy_first_line(t_llist *list, t_map *map)
+int				copy_first_line(t_llist *list, const t_map *map)
 {
 	t_llist		*curr;
 	long		i;

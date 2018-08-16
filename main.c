@@ -12,7 +12,6 @@
 
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdlib.h>
 #include "error.h"
 #include "bsq.h"
 
@@ -34,7 +33,7 @@ int		main(int argc, char **argv)
 			if (infile >= 0)
 				bsq(infile);
 			else
-				error("cannot open", 13);
+				map_error();
 			if (i != argc)
 				write(1, "\n", 1);
 		}

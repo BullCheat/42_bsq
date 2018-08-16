@@ -14,7 +14,7 @@
 #include "transform.h"
 #include <unistd.h>
 
-void			try_flush_buf(char *buf, long *len)
+void			try_flush_buf(char *buf, unsigned long *len)
 {
 	if (*len == BUF_SIZE)
 	{
@@ -23,12 +23,12 @@ void			try_flush_buf(char *buf, long *len)
 	}
 }
 
-void			print_map(t_map *map, t_solution *solution)
+void			print_map(const t_map *map, const t_solution *solution)
 {
-	char	buf[BUF_SIZE];
-	long	x;
-	long	y;
-	long	i;
+	char			buf[BUF_SIZE];
+	unsigned long	x;
+	unsigned long	y;
+	unsigned long	i;
 
 	y = 0;
 	i = 0;

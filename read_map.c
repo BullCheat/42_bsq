@@ -17,16 +17,6 @@
 #include "error.h"
 #include "solver.h"
 
-void			set(long x, long y, t_map *map)
-{
-	long i;
-	long id;
-
-	i = (x + y * map->width);
-	id = i >> 3;
-	map->tab[id] |= map->tab[id] | 1 << (i & 7);
-}
-
 static t_map	*read_meta(int filedes)
 {
 	long	num_read;
@@ -39,57 +29,60 @@ static t_map	*read_meta(int filedes)
 		if (*cur_buf++ == '\n')
 			break ;
 	if (num_read == -1)
-		error("read meta map", 14);
-	if ((map = malloc(sizeof(t_map))) == 0)
-		error("malloc map", 10);
+		return ((void*)map_error());
+	map = malloc(sizeof(t_map));
+	if (map == 0)
+		return ((void*)map_error());
 	cur_buf = buf;
-	map->height = strptoi(&cur_buf);
+	map->height = strptol(&cur_buf);
 	map->empty = *cur_buf++;
 	map->obstacle = *cur_buf++;
 	map->full = *cur_buf++;
 	return (map);
 }
 
-static int		fill_map(int filedes, t_map *map)
+static char		read_line(const t_map *map, long y, char *buf)
 {
-	long	x;
+	char c;
+	long x;
+
+	x = 0;
+	while (x < map->width)
+	{
+		if ((c = transform_to(buf[x], map)) == ERROR)
+		{
+			return ((char)map_error());
+		}
+		parse(c, x, y);
+		if (c)
+			set(x, y, map);
+		x++;
+	}
+	if (buf[x] != '\n')
+		return (1);
+	return (0);
+}
+
+static int		fill_map(int filedes, const t_map *map)
+{
 	long	y;
-	char	c;
 	char	*buf;
-	int		temp;
+	ssize_t nread;
 
 	buf = malloc((map->width + 1) * sizeof(char));
 	y = 1;
 	while (y < map->height)
 	{
-		temp = read(filedes, buf, map->width + 1);
-		if (temp == 0)
+		nread = read(filedes, buf, map->width + 1);
+		if (nread == 0)
 		{
 			write(2, "Error\n", 6);
 			break ;
 		}
-		while (temp < map->width)
-		{
-			temp += read(filedes, buf + temp, map->width + 1 - temp);
-		}
-		x = 0;
-		while (x < map->width)
-		{
-			if ((c = transform_to(buf[x], map)) == ERROR)
-			{
-				write(2, buf, temp);
-				write(2, "\n", 1);
-				return (0);
-			}
-			parse(c, x, y);
-			if (c)
-				set(x, y, map);
-			x++;
-		}
-		if (buf[x] != '\n')
-		{
+		while (nread < map->width)
+			nread += read(filedes, buf + nread, map->width + 1 - nread);
+		if (read_line(map, y, buf))
 			return (0);
-		}
 		y++;
 	}
 	if (y < map->height)

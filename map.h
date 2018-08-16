@@ -15,19 +15,19 @@
 
 typedef struct	s_map
 {
-	char		empty;
-	char		obstacle;
-	char		full;
-	int			width;
-	int			height;
-	char		*tab;
+	char			empty;
+	char			obstacle;
+	char			full;
+	unsigned long	width;
+	unsigned long	height;
+	void			*tab;
 }				t_map;
 
 typedef struct	s_solution
 {
-	long		x;
-	long		y;
-	long		len;
+	unsigned long x;
+	unsigned long y;
+	LAST_ROW_TYPE len;
 }				t_solution;
 
 #endif

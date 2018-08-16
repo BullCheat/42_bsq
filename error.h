@@ -15,6 +15,5 @@
 # include <unistd.h>
 
 int		map_error(void);
-int		error(char *msg, int len);
 
 #endif

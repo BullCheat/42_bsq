@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		strptoi(char **s)
+#include "lib.h"
+
+unsigned long	strptol(char **s)
 {
-	int		n;
+	unsigned long n;
 
 	n = 0;
 	while (**s >= '0' && **s <= '9')
@@ -22,4 +24,14 @@ int		strptoi(char **s)
 		(*s)++;
 	}
 	return (n);
+}
+
+void			set(long x, long y, const t_map *map)
+{
+	long i;
+	long id;
+
+	i = (x + y * map->width);
+	id = i / sizeof(long); // TODO check perf long char int short
+	((long *)map->tab)[id] |= 1 << (i % sizeof(long));
 }

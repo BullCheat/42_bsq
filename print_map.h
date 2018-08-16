@@ -15,6 +15,6 @@
 # define BUF_SIZE 64000
 # include "map.h"
 
-void	print_map(t_map *map, t_solution *solution);
+void	print_map(const t_map *map, const t_solution *solution);
 
 #endif

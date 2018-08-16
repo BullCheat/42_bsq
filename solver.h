@@ -15,9 +15,10 @@
 
 # include "map.h"
 # include <stdlib.h>
+# define LAST_ROW_TYPE unsigned short
 
-void		initialize(int width);
-void		parse(char c, int x, int y);
+void		initialize(size_t width);
+void		parse(char c, long x, long y);
 t_solution	*get_solution();
 
 #endif

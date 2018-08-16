@@ -15,11 +15,5 @@
 int		map_error(void)
 {
 	write(2, "map error", 10);
-	return (1);
-}
-
-int		error(char *msg, int len)
-{
-	write(2, msg, len);
-	return (1);
+	return (0);
 }

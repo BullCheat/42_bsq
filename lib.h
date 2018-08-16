@@ -13,6 +13,10 @@
 #ifndef LIB_H
 # define LIB_H
 
-int		strptoi(char **strp);
+# include "map.h"
+
+unsigned long	strptol(char **strp);
+
+void			set(long x, long y, const t_map *map);
 
 #endif

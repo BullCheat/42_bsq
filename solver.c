@@ -25,14 +25,14 @@ t_solution	*allocate_solution(void)
 }
 
 t_solution *g_sol;
-int g_last_up_left;
-int *g_lastrow;
+LAST_ROW_TYPE g_last_up_left;
+LAST_ROW_TYPE *g_lastrow;
 
-void		initialize(int w)
+void		initialize(size_t w)
 {
 	g_sol = allocate_solution();
-	g_lastrow = malloc((w + 1) * sizeof(int));
-	memset(g_lastrow, 0, (w + 1) * sizeof(int));
+	g_lastrow = malloc((w + 1) * sizeof(LAST_ROW_TYPE));
+	memset(g_lastrow, 0, (w + 1) * sizeof(LAST_ROW_TYPE));
 	g_last_up_left = 0;
 }
 
@@ -42,10 +42,10 @@ t_solution	*get_solution(void)
 	return (g_sol);
 }
 
-void		parse(char c, int x, int y)
+void		parse(char c, long x, long y)
 {
-	int *next;
-	int temp2;
+	LAST_ROW_TYPE *next;
+	LAST_ROW_TYPE temp2;
 
 	next = g_lastrow + x + 1;
 	temp2 = *next;
@@ -61,8 +61,8 @@ void		parse(char c, int x, int y)
 		if (*next > g_sol->len)
 		{
 			g_sol->len = *next;
-			g_sol->x = x - *next + 1;
-			g_sol->y = y - *next + 1;
+			g_sol->x = (unsigned long)(x - *next + 1);
+			g_sol->y = (unsigned long)(y - *next + 1);
 		}
 	}
 	g_last_up_left = temp2;

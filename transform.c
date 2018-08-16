@@ -12,15 +12,17 @@
 
 #include "transform.h"
 
-char			readmap(long x, long y, t_map *map)
+char		read_from_mem(long x, long y, const t_map *map)
 {
-	long i;
+	long			i;
+	unsigned long	base;
 
 	i = (x + y * map->width);
-	return ((map->tab[i >> 3] >> (i & 7)) & 1);
+	base = ((unsigned long*)map->tab)[i / sizeof(long)];
+	return (char)((base >> (i % sizeof(long))) & 1);
 }
 
-char			transform_to(char c, t_map *map)
+char		transform_to(char c, const t_map *map)
 {
 	if (c == map->empty)
 		return (0);
@@ -29,7 +31,7 @@ char			transform_to(char c, t_map *map)
 	return (ERROR);
 }
 
-static char		contains(t_solution *solution, long x, long y)
+static char	contains(const t_solution *solution, ULONG x, ULONG y)
 {
 	if (solution == (NULL))
 		return (0);
@@ -39,13 +41,13 @@ static char		contains(t_solution *solution, long x, long y)
 	return (0);
 }
 
-char			transform_from(long x, long y, t_map *map, t_solution *solution)
+char		transform_from(ULONG x, ULONG y, t_map *map, t_solution *solution)
 {
 	long	n;
 
 	if (contains(solution, x, y))
 		return (map->full);
-	n = readmap(x, y, map);
+	n = read_from_mem(x, y, map);
 	if (n == 0)
 		return (map->empty);
 	return (map->obstacle);
