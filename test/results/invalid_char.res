@@ -1,10 +1,1 @@
-oooo..o.....o..
-o........xxxx.o
-.....o.ooxxxx.o
-....o.o..xxxxo.
-.o..o.oooxxxx..
-..o............
-.o.o.....o.o...
-.............o.
-...o..o..o..o..
-....o..oo..o...
+map error

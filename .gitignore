@@ -1,6 +1,6 @@
-*.out
 *.gch
 cmake-build-debug
 CMakeLists.txt
 .idea/
 *.swp
+test/results

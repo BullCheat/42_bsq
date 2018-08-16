@@ -51,7 +51,7 @@ static char		read_line(const t_map *map, long y, char *buf)
 	{
 		if ((c = transform_to(buf[x], map)) == ERROR)
 		{
-			return (1);
+			return (0);
 		}
 		parse(c, x, y);
 		if (c)
