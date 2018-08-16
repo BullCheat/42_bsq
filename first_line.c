@@ -44,9 +44,9 @@ t_llist			*read_first_line(int filedes, unsigned long *len)
 
 int				copy_first_line(t_llist *list, const t_map *map)
 {
-	t_llist		*curr;
-	long		i;
-	char		c;
+	t_llist			*curr;
+	unsigned long	i;
+	char			c;
 
 	i = 0;
 	curr = list;

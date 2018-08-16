@@ -13,9 +13,9 @@
 #ifndef SOLVER_H
 # define SOLVER_H
 
+# define LAST_ROW_TYPE unsigned short
 # include "map.h"
 # include <stdlib.h>
-# define LAST_ROW_TYPE unsigned short
 
 void		initialize(size_t width);
 void		parse(char c, long x, long y);

@@ -18,6 +18,7 @@
 # define ULONG unsigned long
 
 char	transform_to(char c, const t_map *map);
-char	transform_from(ULONG x, ULONG y, t_map *map, t_solution *solution);
+char	transform_from(ULONG x, ULONG y,
+			   const t_map *map, const t_solution *solution);
 
 #endif

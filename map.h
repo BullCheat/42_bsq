@@ -13,7 +13,7 @@
 #ifndef MAP_H
 # define MAP_H
 
-typedef struct	s_map
+typedef struct		s_map
 {
 	char			empty;
 	char			obstacle;
@@ -21,13 +21,13 @@ typedef struct	s_map
 	unsigned long	width;
 	unsigned long	height;
 	void			*tab;
-}				t_map;
+}					t_map;
 
-typedef struct	s_solution
+typedef struct		s_solution
 {
-	unsigned long x;
-	unsigned long y;
-	LAST_ROW_TYPE len;
-}				t_solution;
+	unsigned long	x;
+	unsigned long	y;
+	short			len; // fixme
+}					t_solution;
 
 #endif

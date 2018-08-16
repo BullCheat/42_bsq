@@ -29,10 +29,10 @@ static t_map	*read_meta(int filedes)
 		if (*cur_buf++ == '\n')
 			break ;
 	if (num_read == -1)
-		return ((void*)map_error());
+		return ((void*)(long)map_error());
 	map = malloc(sizeof(t_map));
 	if (map == 0)
-		return ((void*)map_error());
+		return ((void*)(long)map_error());
 	cur_buf = buf;
 	map->height = strptol(&cur_buf);
 	map->empty = *cur_buf++;
@@ -43,8 +43,8 @@ static t_map	*read_meta(int filedes)
 
 static char		read_line(const t_map *map, long y, char *buf)
 {
-	char c;
-	long x;
+	char			c;
+	unsigned long	x;
 
 	x = 0;
 	while (x < map->width)
@@ -65,15 +65,15 @@ static char		read_line(const t_map *map, long y, char *buf)
 
 static int		fill_map(int filedes, const t_map *map)
 {
-	long	y;
-	char	*buf;
-	ssize_t nread;
+	unsigned long	y;
+	char			*buf;
+	unsigned long	nread;
 
 	buf = malloc((map->width + 1) * sizeof(char));
 	y = 1;
 	while (y < map->height)
 	{
-		nread = read(filedes, buf, map->width + 1);
+		nread = (unsigned long) read(filedes, buf, map->width + 1);
 		if (nread == 0)
 		{
 			write(2, "Error\n", 6);
