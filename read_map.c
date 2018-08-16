@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 10:46:12 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 16:48:22 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/08/15 19:34:28 by tkobb            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ t_map			*read_map(int filedes)
 
 	map = read_meta(filedes);
 	first_line = read_first_line(filedes, &map->width);
+	if (map->width == 0)
+		return (NULL);
 	initialize(map->width);
 	map->tab = allocate(map->width * map->height);
 	if (copy_first_line(first_line, map) == 0)
