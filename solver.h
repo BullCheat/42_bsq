@@ -13,12 +13,13 @@
 #ifndef SOLVER_H
 # define SOLVER_H
 
-# define LAST_ROW_TYPE unsigned short
+# define LAST_ROW_TYPE unsigned int
 # include "map.h"
+# include "transform.h"
 # include <stdlib.h>
 
 char		initialize(size_t width);
-void		parse(char c, long x, long y);
+void		parse(char c, t_coord *coord);
 t_solution	*get_solution();
 
 #endif

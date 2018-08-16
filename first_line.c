@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "first_line.h"
-#include "read_map.h"
-#include "transform.h"
-#include "solver.h"
 
 t_llist			*read_first_line(int filedes, unsigned long *len)
 {
@@ -42,24 +39,38 @@ t_llist			*read_first_line(int filedes, unsigned long *len)
 	return (head);
 }
 
-int				copy_first_line(t_llist *list, const t_map *map)
+t_llist			*next(t_llist **old)
 {
-	t_llist			*curr;
-	unsigned long	i;
-	char			c;
+	t_llist *temp;
 
-	i = 0;
-	curr = list;
-	while (i < map->width)
+	temp = (*old)->next;
+	free(*old);
+	*old = temp;
+}
+
+int				copy_first_line(t_llist *curr, const t_map *map)
+{
+	char			c;
+	t_coord			*coord;
+
+	coord = malloc(sizeof(t_coord));
+	coord->i = 0;
+	coord->x = 0;
+	coord->y = 0;
+	while (coord->i < map->width)
 	{
-		c = transform_to(((char*)curr->data)[i % CHUNK_SIZE], map);
+		c = transform_to(((char*)curr->data)[coord->i % CHUNK_SIZE], map);
 		if (c == ERROR)
 			return (0);
-		parse(c, i, 0);
+		parse(c, coord);
 		if (c)
-			set(i, 0, map);
-		if (++i == CHUNK_SIZE)
-			curr = curr->next;
+			set(coord, map);
+		coord->i++;
+		coord->x++;
+		if (coord->i == CHUNK_SIZE)
+			next(&curr);
 	}
+	if (curr != NULL)
+		free(curr);
 	return (1);
 }

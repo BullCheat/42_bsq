@@ -30,12 +30,10 @@ unsigned long	stol(char *s, int num)
 	return (n);
 }
 
-void			set(long x, long y, const t_map *map)
+void			set(t_coord *c, const t_map *map)
 {
-	long i;
 	long std;
 
-	i = (x + y * map->width);
-	std = sizeof(long) * 8; // todo check perf long int
-	((long *)map->tab)[i / std] |= 1L << (i % std);
+	std = sizeof(long) * 8;
+	((long *)map->tab)[c->i / std] |= 1L << (c->i % std);
 }

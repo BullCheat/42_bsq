@@ -14,9 +14,10 @@
 # define LIB_H
 
 # include "map.h"
+# include "transform.h"
 
 unsigned long	stol(char *s, int num);
 
-void			set(long x, long y, const t_map *map);
+void			set(t_coord *c, const t_map *map);
 
 #endif

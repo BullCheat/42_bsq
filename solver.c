@@ -30,12 +30,17 @@ LAST_ROW_TYPE *g_lastrow;
 
 char		initialize(size_t w)
 {
+	unsigned long	i;
+	size_t			l;
+
 	if (w < 1)
 		return (0);
 	g_sol = allocate_solution();
-	size_t l = (w + 1) * sizeof(LAST_ROW_TYPE);
+	l = (w + 1) * sizeof(LAST_ROW_TYPE) + sizeof(long);
 	g_lastrow = malloc(l);
-	memset(g_lastrow, 0, l);
+	i = 0;
+	while (i < l / sizeof(long))
+		((long*)g_lastrow)[i++] = 0;
 	g_last_up_left = 0;
 	return (1);
 }
@@ -46,27 +51,27 @@ t_solution	*get_solution(void)
 	return (g_sol);
 }
 
-void		parse(char c, long x, long y)
+void		parse(char c, t_coord *coord)
 {
 	LAST_ROW_TYPE *next;
 	LAST_ROW_TYPE temp2;
 
-	next = g_lastrow + x + 1;
+	next = g_lastrow + coord->x + 1;
 	temp2 = *next;
 	if (c)
 		*next = 0;
 	else
 	{
-		if (*next > g_lastrow[x])
-			*next = g_lastrow[x];
+		if (*next > g_lastrow[coord->x])
+			*next = g_lastrow[coord->x];
 		if (*next > g_last_up_left)
 			*next = g_last_up_left;
 		*next += 1;
 		if (*next > g_sol->len)
 		{
 			g_sol->len = *next;
-			g_sol->x = (unsigned long)(x - *next + 1);
-			g_sol->y = (unsigned long)(y - *next + 1);
+			g_sol->x = (unsigned long)(coord->x - *next + 1);
+			g_sol->y = (unsigned long)(coord->y - *next + 1);
 		}
 	}
 	g_last_up_left = temp2;

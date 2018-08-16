@@ -15,6 +15,10 @@
 # define CHUNK_SIZE 1024
 # include "llist.h"
 # include "map.h"
+# include "lib.h"
+# include "read_map.h"
+# include "transform.h"
+# include "solver.h"
 
 t_llist		*read_first_line(int filedes, unsigned long *len);
 int			copy_first_line(t_llist *list, const t_map *map);

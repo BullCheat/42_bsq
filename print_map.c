@@ -26,24 +26,28 @@ void			try_flush_buf(char *buf, unsigned long *len)
 void			print_map(const t_map *map, const t_solution *solution)
 {
 	char			buf[BUF_SIZE];
-	unsigned long	x;
-	unsigned long	y;
+	t_coord			*c;
 	unsigned long	i;
 
-	y = 0;
+	c = malloc(sizeof(t_coord));
+	c->y = 0;
+	c->i = 0;
 	i = 0;
-	while (y < map->height)
+	while (c->y < map->height)
 	{
-		x = 0;
-		while (x < map->width)
+		c->x = 0;
+		while (c->x < map->width)
 		{
 			try_flush_buf(buf, &i);
-			buf[i++] = transform_from(x++, y, map, solution);
+			buf[i++] = transform_from(c, map, solution);
+			c->x++;
+			c->i++;
 		}
 		try_flush_buf(buf, &i);
 		buf[i++] = '\n';
-		y++;
+		c->y++;
 	}
+	free(c);
 	if (i > 0)
 		write(1, buf, i);
 }

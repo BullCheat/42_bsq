@@ -16,9 +16,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "first_line.h"
 
 t_map	*read_map(int filedes);
-void	set(long x, long y, const t_map *map);
-void			*allocate(unsigned long size);
+void	*allocate(unsigned long size);
 
 #endif

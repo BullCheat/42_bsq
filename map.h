@@ -27,7 +27,7 @@ typedef struct		s_solution
 {
 	unsigned long	x;
 	unsigned long	y;
-	short			len; // fixme
+	unsigned int	len;
 }					t_solution;
 
 #endif

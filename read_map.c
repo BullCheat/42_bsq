@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 
 #include "read_map.h"
-#include "first_line.h"
-#include "lib.h"
-#include "transform.h"
-#include "solver.h"
 
 static t_map	*read_meta(int filedes)
 {
@@ -40,38 +36,38 @@ static t_map	*read_meta(int filedes)
 	return (map);
 }
 
-static char		read_line(const t_map *map, long y, char *buf)
+static char		read_line(const t_map *map, char *buf, t_coord *coord)
 {
 	char			c;
-	unsigned long	x;
 
-	x = 0;
-	while (x < map->width)
+	coord->x = 0;
+	while (coord->x < map->width)
 	{
-		if ((c = transform_to(buf[x], map)) == ERROR)
+		if ((c = transform_to(buf[coord->x], map)) == ERROR)
 		{
 			return (0);
 		}
-		parse(c, x, y);
+		parse(c, coord);
 		if (c)
-			set(x, y, map);
-		x++;
+			set(coord, map);
+		coord->x++;
+		coord->i++;
 	}
-	if (buf[x] != '\n')
+	if (buf[coord->x] != '\n')
 		return (0);
 	return (1);
 }
 
-static int		fill_map(int filedes, const t_map *map)
+static int		fill_map(int filedes, const t_map *map, t_coord *c)
 {
-	unsigned long	y;
 	char			*buf;
 	unsigned long	temp;
 	unsigned long	nread;
 
 	buf = malloc((map->width + 1) * sizeof(char));
-	y = 1;
-	while (y < map->height)
+	c->y = 1;
+	c->i = map->width;
+	while (c->y < map->height)
 	{
 		nread = 0;
 		while (nread < map->width)
@@ -82,9 +78,9 @@ static int		fill_map(int filedes, const t_map *map)
 				return (0);
 			nread += temp;
 		}
-		if (!read_line(map, y, buf))
+		if (!read_line(map, buf, c))
 			return (0);
-		y++;
+		c->y++;
 	}
 	if (read(filedes, buf, 1))
 		return (0);
@@ -110,6 +106,7 @@ void			*allocate(unsigned long size)
 t_map			*read_map(int filedes)
 {
 	t_map	*map;
+	t_coord *coord;
 	t_llist	*first_line;
 
 	map = read_meta(filedes);
@@ -121,7 +118,9 @@ t_map			*read_map(int filedes)
 	map->tab = allocate(map->width * map->height);
 	if (copy_first_line(first_line, map) == 0)
 		return (NULL);
-	if (!fill_map(filedes, map))
+	coord = malloc(sizeof(t_coord));
+	if (!fill_map(filedes, map, coord))
 		return (NULL);
+	free(coord);
 	return (map);
 }
