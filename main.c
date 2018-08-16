@@ -32,6 +32,7 @@ int		main(int argc, char **argv)
 				bsq(infile);
 			else
 				map_error();
+			close(infile);
 		}
 	return (0);
 }
