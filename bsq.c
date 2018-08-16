@@ -15,12 +15,13 @@
 #include "print_map.h"
 #include "error.h"
 
-int		bsq(int infile)
+void	bsq(int infile)
 {
-	t_map		*map;
+	t_map	*map;
 
-	if ((map = read_map(infile)) == NULL)
-		return (map_error());
-	print_map(map, get_solution());
-	return (0);
+	map = read_map(infile);
+	if (map != NULL)
+		print_map(map, get_solution());
+	else
+		map_error();
 }

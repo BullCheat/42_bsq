@@ -29,10 +29,10 @@ static t_map	*read_meta(int filedes)
 		if (*cur_buf++ == '\n')
 			break ;
 	if (num_read == -1)
-		return ((void*)(long)map_error());
+		return (NULL);
 	map = malloc(sizeof(t_map));
 	if (map == 0)
-		return ((void*)(long)map_error());
+		return (NULL);
 	cur_buf = buf;
 	map->height = strptol(&cur_buf);
 	map->empty = *cur_buf++;
@@ -51,7 +51,7 @@ static char		read_line(const t_map *map, long y, char *buf)
 	{
 		if ((c = transform_to(buf[x], map)) == ERROR)
 		{
-			return ((char)map_error());
+			return (1);
 		}
 		parse(c, x, y);
 		if (c)
@@ -59,14 +59,15 @@ static char		read_line(const t_map *map, long y, char *buf)
 		x++;
 	}
 	if (buf[x] != '\n')
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 static int		fill_map(int filedes, const t_map *map)
 {
 	unsigned long	y;
 	char			*buf;
+	unsigned long	temp;
 	unsigned long	nread;
 
 	buf = malloc((map->width + 1) * sizeof(char));
@@ -74,19 +75,20 @@ static int		fill_map(int filedes, const t_map *map)
 	while (y < map->height)
 	{
 		nread = (unsigned long) read(filedes, buf, map->width + 1);
-		if (nread == 0)
-		{
-			write(2, "Error\n", 6);
-			break ;
-		}
+		if (nread < 1)
+			return (0);
 		while (nread < map->width)
-			nread += read(filedes, buf + nread, map->width + 1 - nread);
-		if (read_line(map, y, buf))
+		{
+			temp = (unsigned long) read(filedes,
+					buf + nread, map->width + 1 - nread);
+			if (temp < 1)
+				return (0);
+			nread += temp;
+		}
+		if (!read_line(map, y, buf))
 			return (0);
 		y++;
 	}
-	if (y < map->height)
-		return (0);
 	if (read(filedes, buf, 1) != 0)
 		return (0);
 	return (1);
@@ -118,7 +120,7 @@ t_map			*read_map(int filedes)
 	map->tab = allocate(map->width * map->height);
 	if (copy_first_line(first_line, map) == 0)
 		return (NULL);
-	if (fill_map(filedes, map) == 0)
+	if (!fill_map(filedes, map))
 		return (NULL);
 	return (map);
 }

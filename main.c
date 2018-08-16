@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <fcntl.h>
 #include "error.h"
 #include "bsq.h"
@@ -24,7 +23,6 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 	{
 		bsq(0);
-		write(1, "\n", 1);
 	}
 	else
 		while (i < argc)
@@ -34,8 +32,6 @@ int		main(int argc, char **argv)
 				bsq(infile);
 			else
 				map_error();
-			if (i != argc)
-				write(1, "\n", 1);
 		}
 	return (0);
 }

@@ -13,6 +13,6 @@
 #ifndef BSQ_H
 # define BSQ_H
 
-int		bsq(int filedes);
+void	bsq(int filedes);
 
 #endif

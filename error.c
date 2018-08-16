@@ -14,6 +14,6 @@
 
 int		map_error(void)
 {
-	write(2, "map error", 10);
+	write(2, "map error\n", 10);
 	return (0);
 }
