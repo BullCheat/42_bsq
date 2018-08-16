@@ -39,7 +39,7 @@ t_llist			*read_first_line(int filedes, unsigned long *len)
 	return (head);
 }
 
-t_llist			*next(t_llist **old)
+void			next(t_llist **old)
 {
 	t_llist *temp;
 
