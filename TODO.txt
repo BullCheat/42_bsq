@@ -1,3 +1,0 @@
-Renommer map -> t_map
-Renommer meta -> t_meta
-
