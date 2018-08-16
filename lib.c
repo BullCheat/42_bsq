@@ -12,16 +12,20 @@
 
 #include "lib.h"
 
-unsigned long	strptol(char **s)
+unsigned long	stol(char *s, int num)
 {
-	unsigned long n;
+	unsigned long	n;
+	int				i;
 
 	n = 0;
-	while (**s >= '0' && **s <= '9')
+	i = 0;
+	while (i < num)
 	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
 		n *= 10;
-		n += **s - '0';
-		(*s)++;
+		n += s[i] - '0';
+		i++;
 	}
 	return (n);
 }

@@ -42,7 +42,7 @@ static char	contains(const t_solution *solution, ULONG x, ULONG y)
 }
 
 char		transform_from(ULONG x, ULONG y,
-				   const t_map *map, const t_solution *solution)
+				const t_map *map, const t_solution *solution)
 {
 	long	n;
 

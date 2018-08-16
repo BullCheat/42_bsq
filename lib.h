@@ -15,7 +15,7 @@
 
 # include "map.h"
 
-unsigned long	strptol(char **strp);
+unsigned long	stol(char *s, int num);
 
 void			set(long x, long y, const t_map *map);
 

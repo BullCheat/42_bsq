@@ -19,6 +19,6 @@
 
 char	transform_to(char c, const t_map *map);
 char	transform_from(ULONG x, ULONG y,
-			   const t_map *map, const t_solution *solution);
+				const t_map *map, const t_solution *solution);
 
 #endif

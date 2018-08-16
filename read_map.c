@@ -19,25 +19,25 @@
 
 static t_map	*read_meta(int filedes)
 {
-	long	num_read;
+	int		num_read;
 	char	buf[16];
-	char	*cur_buf;
 	t_map	*map;
 
-	cur_buf = buf;
-	while ((num_read = read(filedes, cur_buf, 1)) > 0)
-		if (*cur_buf++ == '\n')
+	num_read = 0;
+	while (read(filedes, buf + num_read, 1) == 1)
+		if (buf[num_read++] == '\n')
 			break ;
-	if (num_read == -1)
+	if (--num_read < 4)
 		return (NULL);
 	map = malloc(sizeof(t_map));
 	if (map == 0)
 		return (NULL);
-	cur_buf = buf;
-	map->height = strptol(&cur_buf);
-	map->empty = *cur_buf++;
-	map->obstacle = *cur_buf++;
-	map->full = *cur_buf++;
+	map->full = buf[--num_read];
+	map->obstacle = buf[--num_read];
+	map->empty = buf[--num_read];
+	map->height = stol(buf, num_read);
+	if (!map->height)
+		return (NULL);
 	return (map);
 }
 
@@ -74,12 +74,10 @@ static int		fill_map(int filedes, const t_map *map)
 	y = 1;
 	while (y < map->height)
 	{
-		nread = (unsigned long) read(filedes, buf, map->width + 1);
-		if (nread < 1)
-			return (0);
+		nread = 0;
 		while (nread < map->width)
 		{
-			temp = (unsigned long) read(filedes,
+			temp = (unsigned long)read(filedes,
 					buf + nread, map->width + 1 - nread);
 			if (temp < 1)
 				return (0);
@@ -115,8 +113,11 @@ t_map			*read_map(int filedes)
 	t_llist	*first_line;
 
 	map = read_meta(filedes);
+	if (map == NULL)
+		return (NULL);
 	first_line = read_first_line(filedes, &map->width);
-	initialize(map->width);
+	if (!initialize(map->width))
+		return (NULL);
 	map->tab = allocate(map->width * map->height);
 	if (copy_first_line(first_line, map) == 0)
 		return (NULL);

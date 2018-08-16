@@ -17,7 +17,7 @@
 # include "map.h"
 # include <stdlib.h>
 
-void		initialize(size_t width);
+char		initialize(size_t width);
 void		parse(char c, long x, long y);
 t_solution	*get_solution();
 
