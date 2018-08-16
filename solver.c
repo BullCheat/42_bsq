@@ -33,8 +33,9 @@ char		initialize(size_t w)
 	if (w < 1)
 		return (0);
 	g_sol = allocate_solution();
-	g_lastrow = malloc((w + 1) * sizeof(LAST_ROW_TYPE));
-	memset(g_lastrow, 0, (w + 1) * sizeof(LAST_ROW_TYPE));
+	size_t l = (w + 1) * sizeof(LAST_ROW_TYPE);
+	g_lastrow = malloc(l);
+	memset(g_lastrow, 0, l);
 	g_last_up_left = 0;
 	return (1);
 }
