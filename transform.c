@@ -15,11 +15,12 @@
 char		read_from_mem(long x, long y, const t_map *map)
 {
 	long			i;
-	unsigned long	base;
+	// unsigned long	base;
 
 	i = (x + y * map->width);
-	base = ((unsigned long*)map->tab)[i / sizeof(long)];
-	return (char)((base >> (i % sizeof(long))) & 1);
+	/*base = ((unsigned long*)map->tab)[i / sizeof(long)];
+	return (char)((base >> (i % sizeof(long))) & 1);*/
+	return (char) ((long *)map->tab)[i];
 }
 
 char		transform_to(char c, const t_map *map)

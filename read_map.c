@@ -96,10 +96,10 @@ void			*allocate(long size)
 	long	*a;
 	int		i;
 
-	a = malloc(size + sizeof(long));
-	size /= sizeof(long);
+	a = malloc(size * sizeof(long));
+	// size /= sizeof(long);
 	i = 0;
-	while (i < size + 1)
+	while (i < size/* + 1*/)
 	{
 		a[i++] = 0;
 	}
