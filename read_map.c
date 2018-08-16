@@ -14,7 +14,6 @@
 #include "first_line.h"
 #include "lib.h"
 #include "transform.h"
-#include "error.h"
 #include "solver.h"
 
 static t_map	*read_meta(int filedes)
@@ -87,7 +86,7 @@ static int		fill_map(int filedes, const t_map *map)
 			return (0);
 		y++;
 	}
-	if (read(filedes, buf, 1) != 0)
+	if (read(filedes, buf, 1))
 		return (0);
 	return (1);
 }
