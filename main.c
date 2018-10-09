@@ -6,7 +6,7 @@
 /*   By: tkobb <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 11:55:09 by tkobb             #+#    #+#             */
-/*   Updated: 2018/08/15 15:38:35 by tkobb            ###   ########.fr       */
+/*   Updated: 2018/10/08 20:05:33 by adrean           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		main(int argc, char **argv)
 			else
 				map_error();
 			close(infile);
+			if (i == argc - 1 && argc > 2)
+				write(1, "\n", 1);
 		}
 	return (0);
 }
